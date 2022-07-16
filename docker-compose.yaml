@@ -1,8 +1,8 @@
 version: '3.9'
 services:
-  graphql-engine:
+  hasura-tour:
     image: hasura/graphql-engine
-    container_name: hasura
+    container_name: hasura-tour
     ports:
     - "8080:8080"
     restart: always
@@ -15,7 +15,11 @@ services:
       HASURA_GRAPHQL_DEV_MODE: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
-      # HASURA_GRAPHQL_ADMIN_SECRET: t1ger1
+      HASURA_GRAPHQL_ADMIN_SECRET: t1ger1
+      ## Custom variables
+      ACCOUNT_DB_URL: postgres://postgres:123456@postgres:5432/hasuraaccount
+      PRODUCT_DB_URL: postgres://postgres:123456@postgres:5432/hasuraproduct
+      ORDER_DB_URL: postgres://postgres:123456@postgres:5432/hasuraorder
     networks:
       - common
 

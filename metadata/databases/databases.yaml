@@ -2,17 +2,32 @@
   kind: postgres
   configuration:
     connection_info:
-      use_prepared_statements: false
       database_url:
-        connection_parameters:
-          database: hasuraaccount
-          username: postgres
-          password: "123456"
-          host: postgres
-          port: 5432
-      isolation_level: read-committed
+        from_env: ACCOUNT_DB_URL
       pool_settings:
-        connection_lifetime: 600
         idle_timeout: 60
         max_connections: 10
+        retries: 1
   tables: "!include account/tables/tables.yaml"
+- name: product
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: PRODUCT_DB_URL
+      pool_settings:
+        idle_timeout: 60
+        max_connections: 10
+        retries: 1
+  tables: "!include product/tables/tables.yaml"
+- name: order
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: ORDER_DB_URL
+      pool_settings:
+        idle_timeout: 60
+        max_connections: 10
+        retries: 1
+  tables: "!include order/tables/tables.yaml"
