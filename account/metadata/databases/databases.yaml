@@ -1,0 +1,13 @@
+- name: account
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url:
+        from_env: ACCOUNT_DB_URL
+      isolation_level: read-committed
+      pool_settings:
+        connection_lifetime: 600
+        idle_timeout: 60
+        max_connections: 10
+  tables: "!include account/tables/tables.yaml"
