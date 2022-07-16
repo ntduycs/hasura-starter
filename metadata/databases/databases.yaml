@@ -1,1 +1,18 @@
-[]
+- name: account
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url:
+        connection_parameters:
+          database: hasuraaccount
+          username: postgres
+          password: "123456"
+          host: postgres
+          port: 5432
+      isolation_level: read-committed
+      pool_settings:
+        connection_lifetime: 600
+        idle_timeout: 60
+        max_connections: 10
+  tables: "!include account/tables/tables.yaml"
