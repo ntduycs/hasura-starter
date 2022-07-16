@@ -2,32 +2,67 @@
   kind: postgres
   configuration:
     connection_info:
+      use_prepared_statements: false
       database_url:
         from_env: ACCOUNT_DB_URL
+      isolation_level: read-committed
       pool_settings:
+        connection_lifetime: 600
+        retries: 1
         idle_timeout: 60
         max_connections: 10
-        retries: 1
   tables: "!include account/tables/tables.yaml"
-- name: product
-  kind: postgres
-  configuration:
-    connection_info:
-      database_url:
-        from_env: PRODUCT_DB_URL
-      pool_settings:
-        idle_timeout: 60
-        max_connections: 10
-        retries: 1
-  tables: "!include product/tables/tables.yaml"
 - name: order
   kind: postgres
   configuration:
     connection_info:
+      use_prepared_statements: false
       database_url:
         from_env: ORDER_DB_URL
+      isolation_level: read-committed
       pool_settings:
+        connection_lifetime: 600
+        retries: 1
         idle_timeout: 60
         max_connections: 10
-        retries: 1
   tables: "!include order/tables/tables.yaml"
+- name: payment
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url:
+        from_env: PAYMENT_DB_URL
+      isolation_level: read-committed
+      pool_settings:
+        connection_lifetime: 600
+        idle_timeout: 60
+        max_connections: 10
+  tables: "!include payment/tables/tables.yaml"
+- name: product
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url:
+        from_env: PRODUCT_DB_URL
+      isolation_level: read-committed
+      pool_settings:
+        connection_lifetime: 600
+        retries: 1
+        idle_timeout: 60
+        max_connections: 10
+  tables: "!include product/tables/tables.yaml"
+- name: report
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url:
+        from_env: REPORT_DB_URL
+      isolation_level: read-committed
+      pool_settings:
+        connection_lifetime: 600
+        idle_timeout: 60
+        max_connections: 10
+  tables: "!include report/tables/tables.yaml"
