@@ -1,1 +1,0 @@
-INSERT INTO "public"."balance"("id", "user_id", "balance", "updated_at") VALUES (E'462ef17d-bf44-46a9-a8af-73800a4050a2', E'6966b4f1-2de4-4c46-8187-af8206b50962', 1000, E'2022-07-16T19:16:05.589892+00:00');
