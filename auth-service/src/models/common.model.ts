@@ -2,17 +2,6 @@ export interface ErrorResponse {
 	message: string;
 }
 
-export interface HasuraRequest<T> {
-	action: {
-		name: string;
-	};
-	request_query: string;
-	session_variables: object;
-	input: {
-		request: T;
-	};
-}
-
 export class Optional<T> {
 	private readonly value: T | null;
 

@@ -1,5 +1,5 @@
 import { LoginRequest, LoginResponse } from "../models/auth.model";
-import { HasuraRequest } from "../models/common.model";
+import { HasuraRequest } from "../models/hasura.model";
 import logger from "../utils/log.util";
 import { userRepository } from "../repositories";
 import { generateToken } from "../utils/jwt.util";

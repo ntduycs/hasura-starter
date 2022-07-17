@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { join } from "path";
 import { sign, SignOptions, verify, VerifyOptions } from "jsonwebtoken";
-import { HasuraToken } from "../models/auth.model";
+import { HasuraToken } from "../models/hasura.model";
 
 export const generateToken = (payload: any) => {
 	const privateKey = readFileSync(join(__dirname, "../../private.key"));
