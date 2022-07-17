@@ -1,0 +1,16 @@
+type Mutation {
+  login(
+    request: LoginRequest!
+  ): LoginResponse
+}
+
+input LoginRequest {
+  email: String!
+  password: String!
+}
+
+type LoginResponse {
+  access_token: String!
+  refresh_token: String!
+}
+
