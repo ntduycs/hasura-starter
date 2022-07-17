@@ -1,14 +1,31 @@
 version: '3.9'
 services:
+  postgres-account:
+    container_name: postgres-account
+    image: postgres:13.3-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      PG_DATA: /data/postgres
+    ports:
+    - "5430:5432"
+    volumes:
+    - postgres-account:/data/postgres
+    networks:
+      - hasura-account
+    restart: unless-stopped
+
   hasura-account:
     image: hasura/graphql-engine
     container_name: hasura-account
     ports:
     - "9000:8080"
+    depends_on:
+      - postgres-account
     restart: always
     environment:
       ## postgres database to store Hasura metadata
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:123456@postgres:5432/postgres
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:123456@postgres-account:5432/postgres
       ## enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
@@ -17,10 +34,12 @@ services:
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: t1ger1
       ## Custom variables
-      ACCOUNT_DB_URL: postgres://postgres:123456@postgres:5432/hasuraaccount
+      ACCOUNT_DB_URL: postgres://postgres:123456@postgres-account:5432/hasuraaccount
     networks:
-      - common
+      - hasura-account
 
 networks:
-  common:
-    external: true
+  hasura-account:
+
+volumes:
+  postgres-account:

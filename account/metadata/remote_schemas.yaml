@@ -1,1 +1,9 @@
-[]
+- name: payment
+  definition:
+    url: http://host.docker.internal:9001/v1/graphql
+    timeout_seconds: 10
+    headers:
+      - value: t1ger1
+        name: x-hasura-admin-secret
+    forward_client_headers: true
+  comment: ""

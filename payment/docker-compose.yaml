@@ -1,14 +1,31 @@
 version: '3.9'
 services:
+  postgres-payment:
+    container_name: postgres-payment
+    image: postgres:13.3-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      PG_DATA: /data/postgres
+    ports:
+    - "5431:5432"
+    volumes:
+    - postgres-payment:/data/postgres
+    networks:
+      - hasura-payment
+    restart: unless-stopped
+
   hasura-payment:
     image: hasura/graphql-engine
     container_name: hasura-payment
     ports:
     - "9001:8080"
+    depends_on:
+      - postgres-payment
     restart: always
     environment:
       ## postgres database to store Hasura metadata
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:123456@postgres:5432/postgres
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://postgres:123456@postgres-payment:5432/postgres
       ## enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
@@ -17,10 +34,12 @@ services:
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: t1ger1
       ## Custom variables
-      PAYMENT_DB_URL: postgres://postgres:123456@postgres:5432/hasurapayment
+      PAYMENT_DB_URL: postgres://postgres:123456@postgres-payment:5432/hasurapayment
     networks:
-      - common
+      - hasura-payment
 
 networks:
-  common:
-    external: true
+  hasura-payment:
+
+volumes:
+  postgres-payment:

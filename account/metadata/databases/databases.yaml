@@ -11,3 +11,17 @@
         idle_timeout: 60
         max_connections: 10
   tables: "!include account/tables/tables.yaml"
+- name: payment
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url:
+        connection_parameters:
+          database: payment
+          username: postgres
+          password: "123456"
+          host: postgres-account
+          port: 5432
+      isolation_level: read-committed
+  tables: "!include payment/tables/tables.yaml"
