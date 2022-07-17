@@ -1,1 +1,2 @@
-[]
+- "!include public_order_item.yaml"
+- "!include public_orders.yaml"
