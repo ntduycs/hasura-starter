@@ -1,3 +1,14 @@
 table:
   schema: public
   name: users
+remote_relationships:
+  - definition:
+      to_source:
+        relationship_type: object
+        source: payment
+        table:
+          schema: public
+          name: balance
+        field_mapping:
+          id: user_id
+    name: user_balance

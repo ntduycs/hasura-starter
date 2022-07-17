@@ -1,3 +1,14 @@
 table:
   schema: public
   name: orders
+remote_relationships:
+  - definition:
+      to_source:
+        relationship_type: object
+        source: account
+        table:
+          schema: public
+          name: users
+        field_mapping:
+          user_id: id
+    name: owner
