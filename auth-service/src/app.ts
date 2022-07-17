@@ -6,6 +6,9 @@ import helmet from "helmet";
 import compression from "compression";
 import logger from "./utils/log.util";
 import router from "./routes";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app: Express = express();
 
