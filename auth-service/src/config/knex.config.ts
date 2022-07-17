@@ -5,7 +5,6 @@ const mode = process.env.NODE_ENV || "development";
 const knexConfig = {
 	development: {
 		client: "postgres",
-		useNullAsDefault: true,
 		connection: {
 			host: "localhost",
 			port: "5432",
@@ -19,13 +18,7 @@ const knexConfig = {
 	// Production config
 	production: {
 		client: "postgres",
-		connection: {
-			host: "localhost",
-			port: "5432",
-			user: "postgres",
-			password: "123456",
-			database: "account",
-		},
+		connection: process.env.DATASOURCE_URL,
 		acquireConnectionTimeout: 5000, // in millis
 	},
 };
