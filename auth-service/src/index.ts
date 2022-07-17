@@ -1,7 +1,8 @@
 import app from "./app";
-import logger from "./util/log.util";
-import * as fs from "fs";
-import * as https from "https";
+import logger from "./utils/log.util";
+import { readFileSync } from "fs";
+import { createServer } from "https";
+import "./entities";
 
 const port = Number(process.env.SERVER_PORT || 3000);
 const mode = process.env.NODE_ENV || "development";
@@ -21,11 +22,11 @@ if (mode === "development") {
 	}
 
 	const credentials = {
-		key: fs.readFileSync(sslKey),
-		cert: fs.readFileSync(sslCert),
+		key: readFileSync(sslKey),
+		cert: readFileSync(sslCert),
 	};
 
-	const httpsServer = https.createServer(credentials, app);
+	const httpsServer = createServer(credentials, app);
 	httpsServer.listen(port, () => {
 		logger.info("=".repeat(30));
 		logger.info(`HTTP server is running on port ${port}\n`);
